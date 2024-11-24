@@ -41,13 +41,15 @@ cd IDS
 ```
 
 Install Dependencies
+```bash
 
 pip install -r requirements.txt
+```
 
 Run the IDS
-
+```bash
 python main.py
-
+```
 
 ---
 
@@ -60,9 +62,11 @@ Modify or add custom detection rules in the rules/ directory.
 Start Monitoring
 
 Run the IDS on a specific network interface:
+```bash
 
 python main.py --interface eth0
 
+```
 Logs and Alerts
 
 Review generated alerts and logs in the logs/ directory for detailed information on potential threats.
@@ -78,15 +82,18 @@ We welcome contributions! To contribute:
 
 
 2. Create a new branch for your feature or fix:
+```bash
 
 git checkout -b feature-name
 
+```
 
 3. Push your changes and create a pull request:
 
+```bash
 git push origin feature-name
 
-
+```
 
 
 ---

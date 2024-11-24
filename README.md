@@ -1,82 +1,103 @@
-Intrusion Detection System (IDS)
+# 🛡️ Intrusion Detection System (IDS)
 
-A customizable and efficient Intrusion Detection System designed to monitor network traffic and identify suspicious activities or potential threats. This project provides tools to detect unauthorized access, unusual behavior, and security breaches in real-time.
+A lightweight and customizable **Intrusion Detection System (IDS)** designed to monitor network traffic, detect suspicious activities, and protect your system from potential threats.
 
-Features
+---
 
-Real-Time Monitoring: Continuously analyze incoming and outgoing network traffic.
+## Features
 
-Detection Methods: Supports signature-based and anomaly-based detection.
+- **Real-Time Traffic Monitoring**  
+  Continuously analyze incoming and outgoing network traffic for anomalies.
+  
+- **Detection Methods**  
+  - **Signature-Based**: Identifies known attack patterns.  
+  - **Anomaly-Based**: Flags unusual network behavior.
 
-Alert System: Generates alerts for potential threats with detailed logs.
+- **Customizable Rule Engine**  
+  Define your own detection rules to tailor the system for specific needs.
 
-Rule Customization: Define your own detection rules to tailor the system to your needs.
+- **Alert System**  
+  Generate logs and alerts for detected threats.
 
-Extensible Design: Modular architecture for integrating additional features or third-party tools.
+- **Extensibility**  
+  Modular architecture allows integration with third-party tools like Wireshark or Snort.
 
-Compatibility: Works with tools like Wireshark, Snort, and other network analysis platforms.
+---
 
+## Requirements
 
-Requirements
+- Python 3.8 or higher
+- Required Python libraries (see [`requirements.txt`](requirements.txt))
+- Administrator/root privileges for monitoring network traffic
 
-Python 3.8+
+---
 
-Required libraries (see requirements.txt)
+## Installation
 
-Root privileges for network traffic monitoring
-
-
-Installation
-
-1. Clone this repository:
-
+### Clone the Repository
+```bash
 git clone https://github.com/vishal-naik-byte/IDS.git
 cd IDS
+```
 
-
-2. Install dependencies:
+Install Dependencies
 
 pip install -r requirements.txt
 
-
-3. Run the IDS:
+Run the IDS
 
 python main.py
 
 
+---
 
 Usage
 
-1. Configure the detection rules in rules/ directory.
+Configure Rules
 
+Modify or add custom detection rules in the rules/ directory.
 
-2. Start monitoring a specific network interface:
+Start Monitoring
+
+Run the IDS on a specific network interface:
 
 python main.py --interface eth0
 
+Logs and Alerts
 
-3. Review logs and alerts in the logs/ directory.
+Review generated alerts and logs in the logs/ directory for detailed information on potential threats.
 
 
+---
 
 Contributing
 
-We welcome contributions to enhance the functionality of this IDS. Please follow these steps:
+We welcome contributions! To contribute:
 
-1. Fork the repository.
-
-
-2. Create a new branch for your feature or fix.
+1. Fork this repository.
 
 
-3. Submit a pull request with a detailed description of your changes.
+2. Create a new branch for your feature or fix:
+
+git checkout -b feature-name
 
 
+3. Push your changes and create a pull request:
+
+git push origin feature-name
+
+
+
+
+---
 
 License
 
 This project is licensed under the MIT License.
 
+
+---
+
 Contact
 
-For questions or support, feel free to reach out or create an issue in the repository.
+For questions, issues, or feedback, feel free to open an issue in this repository or reach out via email at youremail@example.com.

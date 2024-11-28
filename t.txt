@@ -1,0 +1,34 @@
+from PyQt5.QtCore import QThread, pyqtSignal
+
+class SniffThread(QThread):
+    # Signal to send data back to the GUI
+    log_signal = pyqtSignal(str, str, str)
+
+    def __init__(self, iface="wlan0"):
+        super().__init__()
+        self.iface = iface
+        self.running = True  # To allow thread termination
+
+    def run(self):
+        """Start packet sniffing."""
+        sniff(prn=self.process_packet, store=0, iface=self.iface, stop_filter=self.stop_sniff)
+
+    def process_packet(self, packet):
+        """Callback to process each packet."""
+        try:
+            if IP in packet:
+                is_malicious, message = match_signature(packet)
+                if is_malicious:
+                    time_now = time.strftime("%H:%M:%S")
+                    self.log_signal.emit(time_now, "High", message)
+        except Exception as e:
+            print(f"Error processing packet: {e}")
+
+    def stop_sniff(self, packet):
+        """Stop sniffing if the thread is terminated."""
+        return not self.running
+
+    def stop(self):
+        """Stop the thread gracefully."""
+        self.running = False
+        self.wait()

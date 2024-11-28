@@ -99,15 +99,15 @@ class HIDS_GUI(QMainWindow):
     	
     def update_alert_tab(self, alert_message):
 	    """Update the Alerts tab with a new alert."""
-	    self.alert_label.setText(f"Alert: {alert_message}")  # Update the alert label
+	    #self.alert_label.setText(f"Alert: {alert_message}")  # Update the alert label
 
 	    # Add the alert to the logs tab as well
 	    time_now = time.strftime("%H:%M:%S")
-	    row_count = self.logs_table.rowCount()
-	    self.logs_table.insertRow(row_count)
-	    self.logs_table.setItem(row_count, 0, QTableWidgetItem(time_now))
-	    self.logs_table.setItem(row_count, 1, QTableWidgetItem("High"))
-	    self.logs_table.setItem(row_count, 2, QTableWidgetItem(alert_message))
+	    row_count = self.alerts_table.rowCount()
+	    self.alerts_table.insertRow(row_count)
+	    self.alerts_table.setItem(row_count, 0, QTableWidgetItem(time_now))
+	    self.alerts_table.setItem(row_count, 1, QTableWidgetItem("High"))
+	    self.alerts_table.setItem(row_count, 2, QTableWidgetItem(alert_message))
 
 	    # Optionally, you can also update the recent logs in the dashboard tab
 	    row_count = self.recent_logs_table.rowCount()
@@ -115,6 +115,7 @@ class HIDS_GUI(QMainWindow):
 	    self.recent_logs_table.setItem(row_count, 0, QTableWidgetItem(time_now))
 	    self.recent_logs_table.setItem(row_count, 1, QTableWidgetItem("High"))
 	    self.recent_logs_table.setItem(row_count, 2, QTableWidgetItem(alert_message))
+	    
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Host-Based Intrusion Detection System")
@@ -190,12 +191,22 @@ class HIDS_GUI(QMainWindow):
     
     def create_alerts_tab(self):
         """Create the alerts tab."""
+        #alerts_tab = QWidget()
+        #layout = QVBoxLayout()
+        
+        # Placeholder for alerts
+        #self.alert_label = QLabel("No active alerts.")
+        #layout.addWidget(self.alert_label)
+        
+        #alerts_tab.setLayout(layout)
+        """Create the logs tab."""
         alerts_tab = QWidget()
         layout = QVBoxLayout()
         
-        # Placeholder for alerts
-        self.alert_label = QLabel("No active alerts.")
-        layout.addWidget(self.alert_label)
+        # Logs table
+        self.alerts_table = QTableWidget(0, 3)
+        self.alerts_table.setHorizontalHeaderLabels(["Time", "Severity", "Message"])
+        layout.addWidget(self.alerts_table)
         
         alerts_tab.setLayout(layout)
         return alerts_tab

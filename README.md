@@ -108,4 +108,4 @@ This project is licensed under the MIT License.
 
 Contact
 
-For questions, issues, or feedback, feel free to open an issue in this repository or reach out via email at [contact](https://docs.google.com/forms/d/e/1FAIpQLScK4SJMqZ4obqhA07Rnlj-K-vPWO2NXgix9Tz4fjl2zP4YNSg/viewform).
+For questions, issues, or feedback, feel free to open an issue in this repository or reach out via this form -- [contact](https://docs.google.com/forms/d/e/1FAIpQLScK4SJMqZ4obqhA07Rnlj-K-vPWO2NXgix9Tz4fjl2zP4YNSg/viewform).

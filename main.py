@@ -21,6 +21,7 @@ malicious_signatures = [
 class SniffThread(QThread):
     # Signal to send data back to the GUI
     log_signal = pyqtSignal(str, str, str)
+    alert_signal = pyqtSignal(str)
 
     def __init__(self, iface="wlan0"):
         super().__init__()
@@ -50,12 +51,15 @@ class SniffThread(QThread):
         """Callback to process each packet."""
         print("processing")
         #print(packet)
+        time_now = time.strftime("%H:%M:%S")
+        self.log_signal.emit(time_now, "High", "message")
         try:
             if IP in packet:
                 is_malicious, message = match_signature(packet)
                 if is_malicious:
                     time_now = time.strftime("%H:%M:%S")
                     self.log_signal.emit(time_now, "High", message)
+                    self.alert_signal.emit(message)
         except Exception as e:
             print(f"Error processing packet: {e}")
             
@@ -93,6 +97,24 @@ class HIDS_GUI(QMainWindow):
     	self.logs_table.setItem(row_count, 1, QTableWidgetItem(severity))
     	self.logs_table.setItem(row_count, 2, QTableWidgetItem(message)) 
     	
+    def update_alert_tab(self, alert_message):
+	    """Update the Alerts tab with a new alert."""
+	    self.alert_label.setText(f"Alert: {alert_message}")  # Update the alert label
+
+	    # Add the alert to the logs tab as well
+	    time_now = time.strftime("%H:%M:%S")
+	    row_count = self.logs_table.rowCount()
+	    self.logs_table.insertRow(row_count)
+	    self.logs_table.setItem(row_count, 0, QTableWidgetItem(time_now))
+	    self.logs_table.setItem(row_count, 1, QTableWidgetItem("High"))
+	    self.logs_table.setItem(row_count, 2, QTableWidgetItem(alert_message))
+
+	    # Optionally, you can also update the recent logs in the dashboard tab
+	    row_count = self.recent_logs_table.rowCount()
+	    self.recent_logs_table.insertRow(row_count)
+	    self.recent_logs_table.setItem(row_count, 0, QTableWidgetItem(time_now))
+	    self.recent_logs_table.setItem(row_count, 1, QTableWidgetItem("High"))
+	    self.recent_logs_table.setItem(row_count, 2, QTableWidgetItem(alert_message))
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Host-Based Intrusion Detection System")
@@ -182,6 +204,7 @@ class HIDS_GUI(QMainWindow):
     	"""Start the sniffing thread."""
     	self.sniff_thread = SniffThread("wlan0")
     	self.sniff_thread.log_signal.connect(self.add_log_entry)  # Connect signal to add log entry
+    	self.sniff_thread.alert_signal.connect(self.update_alert_tab)  # Connect signal to update alert tab
     	self.sniff_thread.start()
     	self.status_label.setText("System Status: Monitoring...")
     	

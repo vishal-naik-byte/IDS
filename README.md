@@ -49,7 +49,7 @@ pip install -r requirements.txt
 
 Run the IDS
 ```bash
-python main.py
+sudo python main.py
 ```
 
 ---
@@ -65,7 +65,7 @@ Start Monitoring
 Run the IDS on a specific network interface:
 ```bash
 
-python main.py --interface eth0
+sudo python main.py
 
 ```
 Logs and Alerts

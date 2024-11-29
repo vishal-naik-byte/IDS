@@ -5,7 +5,7 @@ import time
 from lll import follow_journal_logs
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem, 
-    QTabWidget, QWidget, QPushButton, QHBoxLayout
+    QTabWidget, QWidget, QPushButton, QHBoxLayout, QHeaderView, QTableWidget
 )
 from PyQt5.QtCore import QThread, pyqtSignal
 
@@ -13,7 +13,7 @@ from PyQt5.QtCore import QThread, pyqtSignal
 # Format: {'signature_type': 'pattern'}
 malicious_signatures = [
     {'type': 'IP', 'pattern': '192.168.1.100'},
-    {'type': 'IP', 'pattern': '192.168.152.116'},
+    {'type': 'IP', 'pattern': '192.168.194.116'},
     {'type': 'IP', 'pattern': '64:ff9b::a29f:8a40'},  # Example malicious IP
     {'type': 'PORT', 'pattern': 80},             # Example malicious port
     {'type': 'PAYLOAD', 'pattern': r"select.*from.*users"},  # Example SQL Injection pattern
@@ -146,8 +146,8 @@ class HIDS_GUI(QMainWindow):
 
     	# Control buttons
     	control_layout = QHBoxLayout()
-    	start_button = QPushButton("Start Sniffing")
-    	stop_button = QPushButton("Stop Sniffing")
+    	start_button = QPushButton("Start")
+    	stop_button = QPushButton("Stop")
     	control_layout.addWidget(start_button)
     	control_layout.addWidget(stop_button)
     	layout.addLayout(control_layout)
@@ -169,9 +169,27 @@ class HIDS_GUI(QMainWindow):
         logs_tab = QWidget()
         layout = QVBoxLayout()
         
+        layout.setContentsMargins(0,0,0,0)
+        layout.setSpacing(0)
+        
+        
         # Logs table
         self.logs_table = QTableWidget(0, 3)
         self.logs_table.setHorizontalHeaderLabels(["Time", "Severity", "Message"])
+        layout.addWidget(self.logs_table)
+        
+        #self.logs_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        #self.logs_table.setEditTriggers(QTableWidget.NoEditTriggers)
+        #self.logs_table.setSelectionBehavior(QTableWidget.SelectRows)
+        self.logs_table.horizontalHeader().setStretchLastSection(False)
+        header= self.logs_table.horizontalHeader()
+        header.setSectionResizeMode(0,QHeaderView.Stretch)
+        header.setSectionResizeMode(1,QHeaderView.Stretch)
+        header.setSectionResizeMode(2,QHeaderView.Stretch)
+        total_width= self.logs_table.width()
+        header.resizeSection(0,int(total_width * 0.2))
+        header.resizeSection(1,int(total_width * 0.2))
+        header.resizeSection(2,int(total_width * 0.6))
         layout.addWidget(self.logs_table)
         
         logs_tab.setLayout(layout)
@@ -286,7 +304,7 @@ def packet_callback(packet,gui_instance):
     except Exception as e:
         print(f"Error processing packet: {e}")
         
-    
+
 """Capture packets on the network interface (e.g., eth0)"""
 def main(gui_instance):
 	print("Starting NIDS...")

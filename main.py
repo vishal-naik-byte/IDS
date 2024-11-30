@@ -65,8 +65,6 @@ class SniffThread(QThread):
             
     def packet_callback1(packet,gui_instance):
     	"""Callback function to process each packet."""
-    	#gui_instance.add_log_entry("12:45 PM", "Medium", "Detected suspicious payload.")
-    	#gui_instance.add_log_entry("1:00 PM", "High", "Malicious IP activity detected from 192.168.1.100.")
     	try:
     	    # Only process IP packets (skip non-IP packets like ARP, etc.)
     	    if IP in packet:
